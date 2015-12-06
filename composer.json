@@ -14,10 +14,7 @@
     "autoload": {
         "psr-4": {
             "Modelstats_": "Modelstats/"
-        },
-        "classmap": [
-            "src/Google/Service/"
-        ]
+        }
     },
     "extra": {
 
