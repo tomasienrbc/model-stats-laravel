@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modelstats_": "Modelstats/"
+            "Modelstats\\": "Modelstats/"
         }
     },
     "extra": {
