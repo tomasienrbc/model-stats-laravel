@@ -1,0 +1,25 @@
+{
+    "name": "tomasienrbc/modelstats",
+    "type": "library",
+    "description": "Visualization for database models",
+    "keywords": ["models"],
+    "homepage": "https://github.com/tomasienrbc/model-stats-laravel",
+    "license": "Apache-2.0",
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Modelstats_": "Modelstats/"
+        },
+        "classmap": [
+            "src/Google/Service/"
+        ]
+    },
+    "extra": {
+
+    }
+}
