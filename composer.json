@@ -12,8 +12,8 @@
 
     },
     "autoload": {
-        "psr-4": {
-            "Modelstats\\": "src/"
+        "psr-0": {
+            "Modelstats": "lib/"
         }
     },
     "extra": {
