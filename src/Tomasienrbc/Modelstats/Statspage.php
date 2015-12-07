@@ -1,4 +1,4 @@
-<?php namespace Tomasienrbc\Modelstats;
+<?php namespace Tomasienrbc\Modelstatstest;
 
 class Statspage {
 

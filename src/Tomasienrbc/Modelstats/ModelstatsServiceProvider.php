@@ -1,8 +1,8 @@
-<?php namespace Tomasienrbc\Modelstatstest;
+<?php namespace Tomasienrbc\Modelstats;
 
 use Illuminate\Support\ServiceProvider;
 
-class ModelstatstestServiceProvider extends ServiceProvider {
+class ModelstatsServiceProvider extends ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -30,10 +30,6 @@ class ModelstatstestServiceProvider extends ServiceProvider {
 	 public function register()
 	 {
 
-		 App::bind('statspage', function() {
-    		return new Statspage;
-		 });
-
 		 $this->app['statspage'] = $this->app->share(function($app)
 		 {
 				 return new Statspage;
@@ -43,7 +39,7 @@ class ModelstatstestServiceProvider extends ServiceProvider {
 		 $this->app->booting(function()
 		 {
 				 $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-				 $loader->alias('UnderlyingClass', 'Tomasienrbc\Modelstatstest\Facades\Statspage');
+				 $loader->alias('UnderlyingClass', 'Tomasienrbc\Modelstats\Facades\Statspage');
 		 });
 	 }
 

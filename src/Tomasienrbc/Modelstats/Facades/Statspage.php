@@ -1,4 +1,4 @@
-<?php namespace Tomasienrbc\Modelstats\Facades;
+<?php namespace Tomasienrbc\Modelstatstest\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
