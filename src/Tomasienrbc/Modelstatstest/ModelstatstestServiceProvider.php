@@ -29,6 +29,10 @@ class ModelstatstestServiceProvider extends ServiceProvider {
 	 public function register()
 	 {
 
+		 App::bind('modelstatstest', function() {
+    		return new Statspage;
+		 });
+
 		 $this->app['modelstatstest'] = $this->app->share(function($app)
 		 {
 				 return new Statspage;
