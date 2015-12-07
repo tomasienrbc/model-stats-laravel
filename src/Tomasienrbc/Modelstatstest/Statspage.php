@@ -3,7 +3,7 @@
 class Statspage {
 
   public static function test() {
-    return "What up dawg";
+    return "This is a test to see if this actually worked if it did I don't understand but cool";
   }
 
 }
