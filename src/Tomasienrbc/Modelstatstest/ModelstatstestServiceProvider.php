@@ -18,7 +18,7 @@ class ModelstatstestServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('tomasienrbc/modelstatstest','statspage');
+		$this->package('tomasienrbc/modelstats','statspage');
 		$this->loadViewsFrom(__DIR__.'/views', 'statspage');
 	}
 
