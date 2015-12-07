@@ -1,22 +1,27 @@
 {
-    "name": "tomasienrbc/modelstats",
-    "type": "library",
-    "description": "Visualization for database models",
-    "keywords": ["models"],
-    "homepage": "https://github.com/tomasienrbc/model-stats-laravel",
-    "license": "Apache-2.0",
-    "require": {
-        "php": ">=5.4"
-    },
-    "require-dev": {
-
-    },
-    "autoload": {
-        "psr-0": {
-            "Modelstats": "lib/"
-        }
-    },
-    "extra": {
-
+  "name": "tomasienrbc/modelstats",
+  "description": "",
+  "keywords": [],
+  "homepage": "",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "",
+      "email": ""
     }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "illuminate/config": "~5.0",
+    "illuminate/support": "~5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Modelstats\\": "src/"
+    }
+  },
+  "minimum-stability": "dev"
 }
