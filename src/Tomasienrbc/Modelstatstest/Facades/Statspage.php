@@ -9,6 +9,6 @@ class Statspage extends Facade {
    *
    * @return string
    */
-  protected static function getFacadeAccessor() { return 'statspage'; }
+  protected static function getFacadeAccessor() { return 'modelstatstest'; }
 
 }
