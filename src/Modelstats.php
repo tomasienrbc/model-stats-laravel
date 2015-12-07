@@ -2,7 +2,7 @@
 
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
-class ServiceProvider extends LaravelServiceProvider {
+class Modelstats extends LaravelServiceProvider {
 
     /**
      * Indicates if loading of the provider is deferred.
