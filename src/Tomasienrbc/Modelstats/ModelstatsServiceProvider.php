@@ -47,6 +47,7 @@ class ModelstatsServiceProvider extends ServiceProvider {
 	{
 		$this->package('tomasienrbc/modelstats','statspage');
 		$this->loadViewsFrom(__DIR__.'/views', 'statspage');
+		include __DIR__.'routes.php';
 	}
 
 
