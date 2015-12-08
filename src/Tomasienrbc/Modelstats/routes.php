@@ -1,5 +1,5 @@
 <?php
 
-Route::get("stats/stats",function() {
+Route::get("test/testing",function() {
   return "I can't believe this is working!";
 });
