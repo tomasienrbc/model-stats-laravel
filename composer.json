@@ -1,5 +1,5 @@
 {
-    "name": "tomasienrbc/modelstats",
+    "name": "tomasienrbc/stats",
     "description": "",
     "authors": [
         {
@@ -12,8 +12,11 @@
         "illuminate/support": "4.2.*"
     },
     "autoload": {
+        "classmap" : {
+          "src/facades"
+        },
         "psr-0": {
-            "Tomasienrbc\\Modelstats\\": "src/"
+            "Tomasienrbc\\Stats": "src/"
         }
     },
     "minimum-stability": "stable"
