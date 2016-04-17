@@ -19,7 +19,7 @@ class StatsServiceProvider extends ServiceProvider {
 
 	public function boot() {
 		require __DIR__ . '/routes.php';
-		$this->package("tomasienrbc/stats","stats");
+		// $this->package("tomasienrbc/stats","stats");
 	}
 
 	public function register()
