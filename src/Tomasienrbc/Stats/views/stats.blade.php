@@ -37,6 +37,12 @@
       <button id="month">month</button>
       <button id="forever">forever</button>
     </div>
+    <div class="date_range options">
+      <p>Date Range</p>
+      <input type="text" id="from" class="date_pick" placeholder="From" />
+      <input type="text" id="to" class="date_pick" placeholder="To" />
+      <button id="get_range">Go</button>
+    </div>
 
     <!-- Summary of information displayed -->
 
@@ -52,6 +58,8 @@
     <script src="../js/d3.min.js"></script>
     <script src="../js/plottable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.ui/1.9.1/themes/base/minified/jquery-ui.min.css" />
+    <script src="https://cdn.jsdelivr.net/jquery.ui/1.9.1/jquery-ui.min.js"></script>
     <script src="../js/stats.js"></script>
 <!--
     <script>
