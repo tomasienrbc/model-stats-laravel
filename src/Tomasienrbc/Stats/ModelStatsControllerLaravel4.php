@@ -69,31 +69,16 @@ class ModelStatsControllerLaravel4 extends BaseController {
 		date_default_timezone_set('America/New_York');
 		$today = date('Y-m-d');
 		// Get the information requested
-		// AFAIK you have to write an IF statement to figure out if we want created or updated at, because the string $attr can't be used as a constant
-		///String($attr)????
-		if($attr == "created_at") {
-			$days_fetch = $model::select($attr)
-					->whereBetween('created_at', array(new DateTime($first), new DateTime($last)))
-					->orderBy('created_at', 'asc')
-					->get();
-			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-				return Carbon::parse($date->created_at)->format('m/d/y'); // grouping by years
-			});
-			$today_fetch = $model::select($attr)
-				->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
+		$days_fetch = $model::select($attr)
+				->whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
+				->orderBy('created_at', 'asc')
 				->get();
-		} else if($attr == "updated_at") {
-			$days_fetch = $model::select($attr)
-					->whereBetween('updated_at', array(new DateTime($first), new DateTime($last)))
-					->orderBy('updated_at', 'asc')
-					->get();
-			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-				return Carbon::parse($date->updated_at)->format('m/d/y'); // grouping by years
-			});
-			$today_fetch = $model::select($attr)
-				->whereRaw('date(updated_at) = ?', [Carbon::now()->format('Y-m-d')] )
-				->get();
-		}
+		$days_fetch_grouped = $days_fetch->groupBy(function($date) {
+			return Carbon::parse($date->created_at)->format('m/d/y'); // grouping by years
+		});
+		$today_fetch = $model::select($attr)
+			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
+			->get();
 		$days = array();
 		foreach ($days_fetch_grouped as $key => $value) {
 			$days["days"][$key] = count($days_fetch_grouped[$key]);
