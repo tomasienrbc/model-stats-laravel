@@ -21,17 +21,18 @@ class ModelStatsControllerLaravel5 extends Controller {
 		$start = Input::get("date_range_start");
 		$end = Input::get("date_range_end");
 		$time_type = "".Input::get("time_type")."_at";
-		$return = $this->getModelCounts($models,$time_type,$start,$end);
+		$date_format = "m/d/y";
+		$return = $this->getModelCounts($models, $time_type, $start, $end,$date_format);
 		return $return;
 	}
 
   // for any given model in any given time period, return the grouped counts by day
-	private function getModelCounts($model,$time_type,$start,$end) {
+	private function getModelCounts($model,$time_type,$start,$end,$date_format) {
 		// get list of Model names
 		$return = array();
 
 		// if we got models, do things. Else, kill, eventually try again
-		$count = $this->countModelsByTime($time_type,$model,$start,$end);
+		$count = $this->countModelsByTime($time_type,$model,$start,$end,$date_format);
 		$return[$model] = $count;
 		return $return;
 	}
@@ -58,18 +59,19 @@ class ModelStatsControllerLaravel5 extends Controller {
 	}
 
 	// get count by day based on time attribute such as "created_at" or "updated_at"
-	private function countModelsByTime($attr,$model_raw,$first,$last) {
+	private function countModelsByTime($attr,$model_raw,$first,$last,$date_format) {
 
 		$model = "\\".$model_raw;
 		date_default_timezone_set('America/New_York');
 		$today = date('Y-m-d');
+		$GLOBALS['date_format'] = $date_format;
 		// Get the information requested
 		$days_fetch = $model::select($attr)
 				->whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
 				->orderBy('created_at', 'asc')
 				->get();
 		$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-			return Carbon::parse($date->created_at)->format('m/d/y'); // grouping by years
+			return Carbon::parse($date->created_at)->format($GLOBALS['date_format']);
 		});
 		$today_fetch = $model::select($attr)
 			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
