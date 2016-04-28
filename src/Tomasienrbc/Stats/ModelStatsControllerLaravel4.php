@@ -20,6 +20,8 @@ class ModelStatsControllerLaravel4 extends BaseController {
 		$models = Input::get("models");
 		$start = Input::get("date_range_start");
 		$end = Input::get("date_range_end");
+		Log::info($start);
+		Log::info($end);
 		// you probably don't need the pre-string - Peter
 		$time_type = "".Input::get("time_type")."_at";
 		$return = $this->getModelCounts($models, $time_type, $start, $end);
@@ -72,6 +74,7 @@ class ModelStatsControllerLaravel4 extends BaseController {
 		if($attr == "created_at") {
 			$days_fetch = $model::select($attr)
 					->whereBetween('created_at', array(new DateTime($first), new DateTime($last)))
+					->orderBy('created_at', 'asc')
 					->get();
 			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
 				return Carbon::parse($date->created_at)->format('m/d/y'); // grouping by years
@@ -82,6 +85,7 @@ class ModelStatsControllerLaravel4 extends BaseController {
 		} else if($attr == "updated_at") {
 			$days_fetch = $model::select($attr)
 					->whereBetween('updated_at', array(new DateTime($first), new DateTime($last)))
+					->orderBy('updated_at', 'asc')
 					->get();
 			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
 				return Carbon::parse($date->updated_at)->format('m/d/y'); // grouping by years

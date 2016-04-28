@@ -68,6 +68,7 @@ class ModelStatsControllerLaravel5 extends Controller {
 		if($attr == "created_at") {
 			$days_fetch = $model::select($attr)
 					->whereBetween('created_at', array(new DateTime($first), new DateTime($last)))
+					->orderBy('created_at', 'asc')
 					->get();
 			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
 				return Carbon::parse($date->created_at)->format('m/d/y'); // grouping by years
@@ -78,6 +79,7 @@ class ModelStatsControllerLaravel5 extends Controller {
 		} else if($attr == "updated_at") {
 			$days_fetch = $model::select($attr)
 					->whereBetween('updated_at', array(new DateTime($first), new DateTime($last)))
+					->orderBy('updated_at', 'asc')
 					->get();
 			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
 				return Carbon::parse($date->updated_at)->format('m/d/y'); // grouping by years
