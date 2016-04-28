@@ -21,7 +21,7 @@ class ModelStatsControllerLaravel5 extends Controller {
 		$start = Input::get("date_range_start");
 		$end = Input::get("date_range_end");
 		$time_type = "".Input::get("time_type")."_at";
-		$date_format = "m/d/y";
+		$date_format = Input::get("date_format");
 		$return = $this->getModelCounts($models, $time_type, $start, $end,$date_format);
 		return $return;
 	}

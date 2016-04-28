@@ -28,20 +28,32 @@
     <div class="models options"><p>Models</p><ul></ul></div>
     <div class="time_type options">
       <p>Time Type</p>
-      <button id="created">created</button>
-      <button id="updated">updated</button>
+      <ul>
+        <li><button id="created">created</button></li>
+        <li><button id="updated">updated</button></li>
+      </ul>
     </div>
     <div class="time_range options">
       <p>Time Range - Last...</p>
-      <button id="week">week</button>
-      <button id="month">month</button>
-      <button id="forever">forever</button>
+      <ul>
+        <li><button id="week">week</button></li>
+        <li><button id="month">month</button></li>
+        <li><button id="forever">forever</button></li>
+      </ul>
     </div>
     <div class="date_range options">
       <p>Date Range</p>
       <input type="text" id="from" class="date_pick" placeholder="From" />
       <input type="text" id="to" class="date_pick" placeholder="To" />
       <button id="get_range">Go</button>
+    </div>
+    <div class="group_by options">
+      <p>Group By</p>
+      <ul>
+        <li><button id="group_day">day</button></li>
+        <!-- <li><button id="group_week">week</button></li> -->
+        <li><button id="group_month">month</button></li>
+      </ul>
     </div>
 
     <!-- Summary of information displayed -->
