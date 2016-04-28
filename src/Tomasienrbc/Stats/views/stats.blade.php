@@ -50,7 +50,7 @@
     <div class="group_by options">
       <p>Group By</p>
       <ul>
-        <!-- <li><button id="group_day">day</button></li> -->
+        <li><button id="group_day">day</button></li>
         <!-- <li><button id="group_week">week</button></li> -->
         <li><button id="group_month">month</button></li>
       </ul>
