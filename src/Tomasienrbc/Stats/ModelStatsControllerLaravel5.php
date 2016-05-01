@@ -39,7 +39,7 @@ class ModelStatsControllerLaravel5 extends Controller {
 
 	// get list of Model names
 	private function getModelNames() {
-		$path = app_path() . "/models";
+		$path = app_path() . "/Models";
 		$out=array();
 		if(file_exists($path)) {
 			$results = scandir($path);
