@@ -41,6 +41,9 @@ class ModelStatsControllerLaravel5 extends Controller {
 	private function getModelNames() {
 		$path = app_path() . "/Models";
 		$out=array();
+		if(getenv('DEFAULT_MODEL')) {
+			$out["default"] = getenv('DEFAULT_MODEL');
+		}
 		if(file_exists($path)) {
 			$results = scandir($path);
 			foreach($results as $result) {

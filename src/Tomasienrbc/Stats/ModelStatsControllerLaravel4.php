@@ -31,6 +31,9 @@ class ModelStatsControllerLaravel4 extends BaseController {
 		/// Open the actual file and grep for class to be more precise
 		$path = app_path() . "/models";
 		$out = array();
+		if(getenv('DEFAULT_MODEL')) {
+			$out["default"] = getenv('DEFAULT_MODEL');
+		}
 		if (file_exists($path)) {
 			$results = scandir($path);
 			foreach ($results as $result) {
