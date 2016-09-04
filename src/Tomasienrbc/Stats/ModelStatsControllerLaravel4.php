@@ -75,13 +75,21 @@ class ModelStatsControllerLaravel4 extends BaseController {
 				->whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
 				->orderBy('created_at', 'asc')
 				->get();
-		$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-			return Carbon::parse($date->created_at)->format($GLOBALS['date_format']);
-		});
-		Log::info($days_fetch_grouped);
-		$today_fetch = $model::select($attr)
-			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
-			->get();
+		if($attr === "created_at") {
+			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
+				return Carbon::parse($date->created_at)->format($GLOBALS['date_format']);
+			});
+			$today_fetch = $model::select($attr)
+				->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
+				->get();
+		} else {
+			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
+				return Carbon::parse($date->updated_at)->format($GLOBALS['date_format']);
+			});
+			$today_fetch = $model::select($attr)
+				->whereRaw('date(updated_at) = ?', [Carbon::now()->format('Y-m-d')] )
+				->get();
+		}
 		$days = array();
 		foreach ($days_fetch_grouped as $key => $value) {
 			$days["days"][$key] = count($days_fetch_grouped[$key]);
