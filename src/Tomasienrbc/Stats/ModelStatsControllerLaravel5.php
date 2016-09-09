@@ -71,7 +71,7 @@ class ModelStatsControllerLaravel5 extends Controller {
 		// Get the information requested
 		$days_fetch = $model::select($attr)
 				->whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
-				->orderBy('created_at', 'asc')
+				->orderBy($attr, 'asc')
 				->get();
 		if($attr === "created_at") {
 			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
