@@ -5,6 +5,7 @@ use \Carbon\Carbon;
 use \Input;
 use Log;
 use \DateTime;
+use \DB;
 
 class ModelStatsControllerLaravel5 extends Controller {
 
@@ -69,31 +70,26 @@ class ModelStatsControllerLaravel5 extends Controller {
 		$today = date('Y-m-d');
 		$GLOBALS['date_format'] = $date_format;
 		// Get the information requested
-		$days_fetch = $model::select($attr)
-				->whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
-				->orderBy($attr, 'asc')
-				->get();
-		if($attr === "created_at") {
-			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-				return Carbon::parse($date->created_at)->format($GLOBALS['date_format']);
-			});
-			$today_fetch = $model::select($attr)
-				->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
-				->get();
-		} else {
-			$days_fetch_grouped = $days_fetch->groupBy(function($date) {
-				return Carbon::parse($date->updated_at)->format($GLOBALS['date_format']);
-			});
-			$today_fetch = $model::select($attr)
-				->whereRaw('date(updated_at) = ?', [Carbon::now()->format('Y-m-d')] )
-				->get();
-		}
+		$days_fetch = $model::whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
+			->groupBy('date')
+			->orderBy('date', 'DESC')
+			->get(array(
+					DB::raw('Date(created_at) as date'),
+					DB::raw('COUNT(*) as "count"')
+		));
+
+		$today_fetch = $model::select($attr)
+			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
+			->get();
+
 		$days = array();
-		foreach ($days_fetch_grouped as $key => $value) {
-			$days["days"][$key] = count($days_fetch_grouped[$key]);
-			$days["total"] = count($days_fetch);
-			$days["today"] = count($today_fetch);
+		$days["dates"] = $days_fetch;
+		$total = 0;
+		foreach ($days_fetch as $date) {
+			$total += $date["count"];
 		}
+		$days["total"] = $total;
+		$days["today"] = count($today_fetch);
 	// Also get the total in the range and today
 		 return $days;
 	}
