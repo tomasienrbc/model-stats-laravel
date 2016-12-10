@@ -65,19 +65,24 @@ class ModelStatsControllerLaravel5 extends Controller {
 	// get count by day based on time attribute such as "created_at" or "updated_at"
 	private function countModelsByTime($attr,$model_raw,$first,$last,$date_format) {
 
+		if($date_format == "month") {
+			$date_query_format = "%Y-%m";
+		} else {
+			$date_query_format = "%Y-%m-%d";
+		}
+
 		$model = "\\".$model_raw;
 		date_default_timezone_set('America/New_York');
 		$today = date('Y-m-d');
-		$GLOBALS['date_format'] = $date_format;
 		// Get the information requested
 		$days_fetch = $model::whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
 			->groupBy('date')
 			->orderBy('date', 'DESC')
 			->get(array(
-					DB::raw('Date(created_at) as date'),
+					DB::raw('DATE_FORMAT(created_at,"'.$date_query_format.'") as date'),
 					DB::raw('COUNT(*) as "count"')
 		));
-
+		Log::info($days_fetch);
 		$today_fetch = $model::select($attr)
 			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
 			->get();
@@ -92,5 +97,5 @@ class ModelStatsControllerLaravel5 extends Controller {
 		$days["today"] = count($today_fetch);
 	// Also get the total in the range and today
 		 return $days;
-	}
+		}
 }

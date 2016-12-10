@@ -35,8 +35,8 @@
           <div class="tool coordinates">
             <h5>Group By</h5>
             <select class="form-control" id="group-by">
-              <option value="m/d/y">Day</option>
-              <option value="m/y">Month</option>
+              <option value="day">Day</option>
+              <option value="month">Month</option>
             </select>
           </div>
         </div>
@@ -187,6 +187,6 @@
   <script type="text/javascript" src="..//lib/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-1.1.0.js"></script>
   <script src="https://d26b395fwzu5fz.cloudfront.net/keen-dataviz-1.0.4.js"></script>
-  <script type="text/javascript" src="../js/stats.js?v=refresh1"></script>
+  <script type="text/javascript" src="../js/stats.js?v=refresh2"></script>
 </body>
 </html>
