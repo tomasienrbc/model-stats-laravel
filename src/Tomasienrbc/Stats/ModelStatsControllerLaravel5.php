@@ -17,7 +17,6 @@ class ModelStatsControllerLaravel5 extends Controller {
 
   // routing function for taking in Inputs and returning model stats
 	public function model_stats() {
-
 		$models = Input::get("models");
 		$start = Input::get("date_range_start");
 		$end = Input::get("date_range_end");
@@ -62,6 +61,39 @@ class ModelStatsControllerLaravel5 extends Controller {
 		}
 	}
 
+	private function get_foreign_keys_in_other_tables($table) {
+		$foreign_keys_in_other_tables = DB::select(DB::raw("
+		select
+			TABLE_NAME,COLUMN_NAME,CONSTRAINT_NAME, REFERENCED_TABLE_NAME,REFERENCED_COLUMN_NAME
+		from
+			INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+		where
+			REFERENCED_TABLE_NAME = '".$table."'
+		"));
+		Log::info(json_encode($foreign_keys_in_other_tables));
+	}
+
+ private function get_foreign_keys_in_table($table) {
+	 $test = DB::select(DB::raw("
+		SHOW INDEXES IN ".$table."
+	"));
+	 Log::info($test);
+ }
+
+	private function countJoinByTime() {
+		$join_fetch = \Note::whereBetween("created_at",["2016-01-01","2016-12-12"])
+			->groupBy('date')
+			->orderBy('date')
+			->having('distinct_users', '>' , 1)
+			->get(array(
+				DB::raw('COUNT(DISTINCT user_id) as distinct_users'),
+				DB::raw('user_id as user'),
+				DB::raw('DATE_FORMAT(created_at,"%Y-%m-%d") as date'),
+				DB::raw('COUNT(*) as "count"'))
+			);
+		Log::info(json_encode($join_fetch));
+ 	}
+
 	// get count by day based on time attribute such as "created_at" or "updated_at"
 	private function countModelsByTime($attr,$model_raw,$first,$last,$date_format) {
 
@@ -77,12 +109,12 @@ class ModelStatsControllerLaravel5 extends Controller {
 		// Get the information requested
 		$days_fetch = $model::whereBetween((string)$attr, array(new DateTime($first), new DateTime($last)))
 			->groupBy('date')
-			->orderBy('date', 'DESC')
+			->orderBy('date', 'ASC')
 			->get(array(
 					DB::raw('DATE_FORMAT(created_at,"'.$date_query_format.'") as date'),
 					DB::raw('COUNT(*) as "count"')
 		));
-		Log::info($days_fetch);
+
 		$today_fetch = $model::select($attr)
 			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
 			->get();

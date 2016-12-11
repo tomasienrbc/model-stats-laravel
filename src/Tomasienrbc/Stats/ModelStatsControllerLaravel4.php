@@ -83,7 +83,6 @@ class ModelStatsControllerLaravel4 extends BaseController {
 					DB::raw('DATE_FORMAT(created_at,"'.$date_query_format.'") as date'),
 					DB::raw('COUNT(*) as "count"')
 		));
-		Log::info($days_fetch);
 		$today_fetch = $model::select($attr)
 			->whereRaw('date(created_at) = ?', [Carbon::now()->format('Y-m-d')] )
 			->get();
